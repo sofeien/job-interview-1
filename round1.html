@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>java面试</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        div.content {
+            width: 400px;
+        }
+        
+        div#count {
+            background: #168eb2;
+            color: white;
+            padding: 5px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            border-bottom: 1px solid #eddcdc;
+            padding: 3px;
+        }
+        
+        li:last-child {
+            border-bottom: 0;
+        }
+        
+        li input {
+            font-size: 18px;
+            background-color: inherit;
+            border: 0;
+        }
+        
+        li span {
+            float: right;
+            color: blue;
+            cursor: pointer;
+        }
+        
+        li span:active {
+            color: red;
+        }
+        
+        div#addItem {
+            background-color: #ceb8b8;
+            color: #177217;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: right;
+            padding: 3px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="content">
+        <div id="count">现在一共有:</div>
+        <ul id='lists'>
+            <li>
+                <input type="text" value="这是第一条" size="20" disabled>
+                <span class="modify">修改</span>
+            </li>
+            <li>
+                <input type="text" value="这是第二条" size="20" disabled>
+                <span class="modify">修改</span>
+            </li>
+            <li>
+                <input type="text" value="花儿为什么这样红？" size="20" disabled>
+                <span class="modify">修改</span>
+            </li>
+            <li>
+                <input type="text" value="你知道小月月是哪个不？" size="20" disabled>
+                <span class="modify">修改</span>
+            </li>
+            <li>
+                <input type="text" value="人生就是一" size="20" disabled>
+                <span class="modify">修改</span>
+            </li>
+        </ul>
+        <div id="addItem">新增条目</div>
+    </div>
+
+    <script>
+        var clickFunc = function() {
+            if ($(this).text() === '修改') {
+                $(this).text('保存');
+                $(this).prev().prop('disabled', false);
+                $(this).prev().focus();
+                return;
+            }
+            if ($(this).text() === '保存' && $(this).prev().val() !== '') {
+
+                $(this).text('修改');
+                $(this).prev().prop('disabled', true);
+            }
+        }
+        var addFunc = function() {
+            var inputItem = '<input type="text" value="未命名" size="20" disabled>';
+            var spanItem = $('<span></span>').text('修改');
+            spanItem.addClass('modify');
+            spanItem.on('click', clickFunc);
+            $('<li>').append(inputItem, spanItem).appendTo($('#lists'));
+
+            $('#count').text('现在一共有:' + $('li').length + '个条目');
+
+        }
+        $(function() {
+            $('span').click(clickFunc);
+            $('#addItem').click(addFunc);
+            var lis = $('li');
+            $('#count').text('现在一共有:' + lis.length + '个条目');
+
+        });
+
+    </script>
+</body>
+
+</html>
